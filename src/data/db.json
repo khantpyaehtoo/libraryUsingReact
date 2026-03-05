@@ -1,0 +1,34 @@
+{
+    "books": [
+        {
+            "id": "1",
+            "title": "Eloquent javascript",
+            "description": "Best Js book",
+            "categories": ["Javascript", "Programming"]
+        },
+        {
+            "id": "2",
+            "title": "Laravel from scratch",
+            "description": "Best PHP framework book",
+            "categories": ["PHP", "Programming", "Laravel"]
+        },
+        {
+            "id": "3",
+            "title": "React Basic",
+            "description": "Best Js Library book",
+            "categories": ["React", "Javascript", "Programming"]
+        },
+        {
+            "id": "9c4f",
+            "title": "Fantasy",
+            "description": "one of the fantasy book",
+            "categories": ["Hero", "Fantasy"]
+        },
+        {
+            "id": "1eca",
+            "title": "hello",
+            "description": "Hello",
+            "categories": ["Hello", "Python"]
+        }
+    ]
+}
