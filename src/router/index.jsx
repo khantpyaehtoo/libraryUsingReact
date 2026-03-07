@@ -5,6 +5,8 @@ import BookForm from "../pages/BookForm.jsx";
 import Search from "../pages/Search.jsx";
 import NotFound from "../pages/NotFound.jsx";
 import BookDetail from "../pages/BookDetail.jsx";
+import Register from "../pages/Register.jsx";
+import Login from "../pages/Login.jsx";
 
 const router = createBrowserRouter([
     {
@@ -34,6 +36,14 @@ const router = createBrowserRouter([
             {
                 path: "*",
                 element: <NotFound />,
+            },
+            {
+                path: "/register",
+                element: <Register />,
+            },
+            {
+                path: "/login",
+                element: <Login />,
             },
         ],
     },

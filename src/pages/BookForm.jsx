@@ -63,7 +63,7 @@ export default function Create() {
         };
         // firebase store
         if (isEdit) {
-            let ref = doc(db, "book", id);
+            let ref = doc(db, "books", id);
             await updateDoc(ref, data);
         } else {
             let ref = collection(db, "books");

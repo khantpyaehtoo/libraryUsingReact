@@ -8,6 +8,7 @@ import {
     deleteDoc,
     doc,
     getDocs,
+    onSnapshot,
     orderBy,
     query,
 } from "firebase/firestore";
@@ -24,7 +25,7 @@ export default function BookList() {
         setLoading(true);
         let ref = collection(db, "books");
         let q = query(ref, orderBy("date", "desc"));
-        getDocs(q).then((docs) => {
+        onSnapshot(q, (docs) => {
             if (docs.empty) {
                 setError("no documents found");
                 setLoading(false);
@@ -51,7 +52,7 @@ export default function BookList() {
         // backend delete
         await deleteDoc(ref);
         // frontend delete
-        setBooks((prev) => prev.filter((b) => b.id !== id));
+        // setBooks((prev) => prev.filter((b) => b.id !== id)); // this code doesn't need because you using onSnapshot
     };
 
     if (error) {
