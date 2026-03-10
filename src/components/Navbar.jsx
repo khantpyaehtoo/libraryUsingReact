@@ -4,6 +4,7 @@ import useTheme from "../hooks/useTheme";
 
 import lightIcon from "../assets/light.svg";
 import darkIcon from "../assets/dark.svg";
+import useSignOut from "../hooks/useSignOut";
 
 export default function Navbar() {
     let [search, setSearch] = useState("");
@@ -11,7 +12,13 @@ export default function Navbar() {
 
     let handleSearch = (e) => {
         navigate("/?search=" + search);
-        // console.log(search);
+    };
+
+    let { signOutFunc } = useSignOut();
+
+    let signOutUser = async () => {
+        signOutFunc();
+        navigate("/login");
     };
 
     let { changeTheme, isDark } = useTheme();
@@ -75,11 +82,11 @@ export default function Navbar() {
                     </span>
                 </Link>
 
-                <li className="flex gap-3 items-center">
+                <li className="flex gap-3 items-center list-none">
                     {/* create book */}
                     <Link
                         to="/create"
-                        className="text-white bg-primary px-3 py-2 rounded-2xl flex items-center gap-2"
+                        className="text-white bg-primary px-3 py-2 rounded-2xl flex items-center gap-2 cursor-pointer"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -147,6 +154,14 @@ export default function Navbar() {
                                 onClick={() => changeTheme("dark")}
                             />
                         )}
+                    </div>
+                    <div>
+                        <button
+                            onClick={signOutUser}
+                            className="bg-red-600 text-white rounded-xl px-2 py-2 text-sm"
+                        >
+                            Logout
+                        </button>
                     </div>
                 </li>
             </ul>
