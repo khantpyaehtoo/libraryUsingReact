@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useTheme from "../hooks/useTheme";
 
 import lightIcon from "../assets/light.svg";
 import darkIcon from "../assets/dark.svg";
 import useSignOut from "../hooks/useSignOut";
+import { AuthContext } from "../contexts/AuthContexts";
 
 export default function Navbar() {
     let [search, setSearch] = useState("");
     let navigate = useNavigate();
 
-    let handleSearch = (e) => {
+    let { user } = useContext(AuthContext);
+    console.log(user);
+
+    let handleSearch = () => {
         navigate("/?search=" + search);
     };
 
@@ -155,13 +159,31 @@ export default function Navbar() {
                             />
                         )}
                     </div>
-                    <div>
-                        <button
-                            onClick={signOutUser}
-                            className="bg-red-600 text-white rounded-xl px-2 py-2 text-sm"
-                        >
-                            Logout
-                        </button>
+                    <div className="space-x-3">
+                        {!user && (
+                            <>
+                                <Link
+                                    to={"/login"}
+                                    className="border-primary border-1 rounded-xl px-2 py-2 text-sm"
+                                >
+                                    Login
+                                </Link>
+                                <Link
+                                    to={"/register"}
+                                    className="bg-primary text-white rounded-xl px-2 py-2 text-sm"
+                                >
+                                    Register
+                                </Link>
+                            </>
+                        )}
+                        {!!user && (
+                            <button
+                                onClick={signOutUser}
+                                className="bg-red-600 text-white rounded-xl px-2 py-2 text-sm"
+                            >
+                                Logout
+                            </button>
+                        )}
                     </div>
                 </li>
             </ul>
