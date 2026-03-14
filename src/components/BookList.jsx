@@ -15,34 +15,15 @@ import {
 
 import edit from "../assets/edit.svg";
 import trash from "../assets/trash.svg";
+import useFirestore from "../hooks/useFirestore";
 
 export default function BookList() {
-    let [error, setError] = useState("");
-    let [books, setBooks] = useState([]);
-    let [loading, setLoading] = useState(false);
+    let location = useLocation();
+    let params = new URLSearchParams(location.search);
+    let search = params.get("search");
 
-    useEffect(function () {
-        setLoading(true);
-        let ref = collection(db, "books");
-        let q = query(ref, orderBy("date", "desc"));
-        onSnapshot(q, (docs) => {
-            if (docs.empty) {
-                setError("no documents found");
-                setLoading(false);
-            } else {
-                let books = [];
-                // console.log(docs);
-                docs.forEach((doc) => {
-                    let book = { id: doc.id, ...doc.data() };
-                    books.push(book);
-                });
-                // console.log(books);
-                setBooks(books);
-                setLoading(false);
-                setError("");
-            }
-        });
-    }, []);
+    let { getCollection } = useFirestore();
+    let { error, data: books, loading } = getCollection("books");
 
     const deleteBook = async (e, id) => {
         e.preventDefault();
