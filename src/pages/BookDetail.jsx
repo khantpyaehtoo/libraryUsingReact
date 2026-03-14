@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import BookImg from "../assets/book.png";
 import useTheme from "../hooks/useTheme";
 import { doc, getDoc, onSnapshot } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../firebase/config";
 
 export default function BookDetail() {
     let { id } = useParams();

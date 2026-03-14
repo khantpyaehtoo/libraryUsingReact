@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import book from "../assets/book.png";
 import { Link, useLocation } from "react-router-dom";
 import useTheme from "../hooks/useTheme";
-import { db } from "../firebase";
+import { db } from "../firebase/config";
 import {
     collection,
     deleteDoc,

@@ -1,6 +1,6 @@
 import { signOut } from "firebase/auth";
 import React, { useState } from "react";
-import { auth } from "../firebase";
+import { auth } from "../firebase/config";
 
 export default function useSignOut() {
     const [error, setError] = useState(null);
