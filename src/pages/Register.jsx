@@ -12,7 +12,9 @@ export default function Register() {
     let registerUser = async (e) => {
         e.preventDefault();
         let user = await signUp(email, password);
-        navigate("/");
+        if (user) {
+            navigate("/");
+        }
     };
     return (
         <div className="w-full max-w-lg mt-16 mx-auto">
