@@ -1,17 +1,8 @@
-import React, { useEffect, useState } from "react";
 import book from "../assets/book.png";
 import { Link, useLocation } from "react-router-dom";
 import useTheme from "../hooks/useTheme";
 import { db } from "../firebase/config";
-import {
-    collection,
-    deleteDoc,
-    doc,
-    getDocs,
-    onSnapshot,
-    orderBy,
-    query,
-} from "firebase/firestore";
+import { deleteDoc, doc } from "firebase/firestore";
 
 import edit from "../assets/edit.svg";
 import trash from "../assets/trash.svg";
@@ -22,16 +13,13 @@ export default function BookList() {
     let params = new URLSearchParams(location.search);
     let search = params.get("search");
 
-    let { getCollection } = useFirestore();
+    let { getCollection, deleteDocument } = useFirestore();
     let { error, data: books, loading } = getCollection("books");
 
     const deleteBook = async (e, id) => {
         e.preventDefault();
-        console.log("book id" + id);
-        // delete firestore doc
-        let ref = doc(db, "books", id);
-        // backend delete
-        await deleteDoc(ref);
+        await deleteDocument("books", id);
+
         // frontend delete
         // setBooks((prev) => prev.filter((b) => b.id !== id)); // this code doesn't need because you using onSnapshot
     };

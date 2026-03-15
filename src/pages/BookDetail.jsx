@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import BookImg from "../assets/book.png";
 import useTheme from "../hooks/useTheme";
-import { doc, getDoc, onSnapshot } from "firebase/firestore";
-import { db } from "../firebase/config";
 import useFirestore from "../hooks/useFirestore";
 
 export default function BookDetail() {
