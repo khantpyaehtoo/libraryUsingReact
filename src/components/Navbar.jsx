@@ -178,7 +178,7 @@ export default function Navbar() {
                         {!!user && (
                             <button
                                 onClick={signOutUser}
-                                className="bg-red-600 text-white rounded-xl px-2 py-2 text-sm"
+                                className="bg-red-600 text-white rounded-xl px-2 py-2 text-sm cursor-pointer"
                             >
                                 Logout
                             </button>

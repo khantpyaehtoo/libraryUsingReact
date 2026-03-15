@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useTheme from "../hooks/useTheme";
-import { doc, getDoc, serverTimestamp } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
 import useFirestore from "../hooks/useFirestore";
+import { AuthContext } from "../contexts/AuthContexts";
 
 export default function Create() {
     let { id } = useParams();
@@ -49,13 +50,17 @@ export default function Create() {
         setNewCategory("");
     };
 
+    let { user } = useContext(AuthContext);
+
+    let handlePhotoChange = (e) => {};
+
     let submitForm = async (e) => {
         e.preventDefault();
         let data = {
             title,
             description,
             categories,
-            date: serverTimestamp(),
+            uid: user.uid,
         };
         // firebase store
         if (isEdit) {
@@ -161,6 +166,20 @@ export default function Create() {
                             </span>
                         ))}
                     </div>
+                </div>
+                <div className="w-full px-3 my-3">
+                    <label
+                        className={`block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 ${isDark ? "text-white" : ""}`}
+                        htmlFor="grid-password"
+                    >
+                        book cover
+                    </label>
+                    <input
+                        onChange={(e) => setTitle(e.target.value)}
+                        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        id="grid-password"
+                        type="file"
+                    />
                 </div>
                 {/* create book */}
                 <button className="text-white bg-primary px-3 py-2 rounded-2xl flex justify-center items-center gap-2 w-full">
