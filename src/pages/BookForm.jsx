@@ -2,9 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useTheme from "../hooks/useTheme";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../firebase/config";
+import { db, storage } from "../firebase/config";
 import useFirestore from "../hooks/useFirestore";
 import { AuthContext } from "../contexts/AuthContexts";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export default function Create() {
     let { id } = useParams();
@@ -14,6 +15,8 @@ export default function Create() {
     let [newCategory, setNewCategory] = useState("");
     let [categories, setCategories] = useState([]);
     let [isEdit, setIsEdit] = useState(false);
+    let [file, setFile] = useState(null);
+    let [preview, setPreview] = useState(null);
 
     let { addCollection, updateDocument } = useFirestore();
 
@@ -52,15 +55,42 @@ export default function Create() {
 
     let { user } = useContext(AuthContext);
 
-    let handlePhotoChange = (e) => {};
+    let handlePhotoChange = (e) => {
+        setFile(e.target.files[0]);
+    };
+
+    let handlePreviewImage = (file) => {
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        reader.onload = () => {
+            setPreview(reader.result);
+        };
+    };
+
+    useEffect(() => {
+        if (file) {
+            handlePreviewImage(file);
+        }
+    }, [file]);
+
+    let uploadToFirebase = async (file) => {
+        let uniqueFileName = Date.now().toString() + "_" + file.name;
+        let path = "/covers/" + user.uid + "/" + uniqueFileName;
+        let storageRef = ref(storage, path);
+        await uploadBytes(storageRef, file);
+        return await getDownloadURL(storageRef);
+    };
 
     let submitForm = async (e) => {
         e.preventDefault();
+        let url = await uploadToFirebase(file);
         let data = {
             title,
             description,
             categories,
             uid: user.uid,
+            cover: url,
         };
         // firebase store
         if (isEdit) {
@@ -175,11 +205,20 @@ export default function Create() {
                         book cover
                     </label>
                     <input
-                        onChange={(e) => setTitle(e.target.value)}
+                        onChange={handlePhotoChange}
                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                         id="grid-password"
                         type="file"
                     />
+                    {!!preview && (
+                        <img
+                            src={preview}
+                            alt=""
+                            className="my-3"
+                            width={500}
+                            height={500}
+                        />
+                    )}
                 </div>
                 {/* create book */}
                 <button className="text-white bg-primary px-3 py-2 rounded-2xl flex justify-center items-center gap-2 w-full">

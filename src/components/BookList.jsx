@@ -45,12 +45,10 @@ export default function BookList() {
                             <div
                                 className={`p-4 border border-1 min-h-[420px] ${isDark ? "bg-dcard border-primary text-white" : ""}`}
                             >
-                                <img src={book} alt="" />
-
+                                <img src={b.cover} alt="" />
                                 <div className="text-center space-y-2 mt-3">
                                     <h1>{b.title}</h1>
                                     <p>{b.description}</p>
-
                                     {/* genres */}
                                     <div className="flex flex-wrap">
                                         {b.categories.map((c) => (
