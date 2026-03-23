@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import useTheme from "../hooks/useTheme";
 import useFirestore from "../hooks/useFirestore";
+import NoteForm from "../components/NoteForm";
 
 export default function BookDetail() {
     let { id } = useParams();
@@ -39,16 +40,7 @@ export default function BookDetail() {
                         <h3 className="font-bold text-xl text-primary my-3">
                             My Notes
                         </h3>
-                        <textarea
-                            className="bg-gray-50 w-full shadow-md border-2 p-3"
-                            name=""
-                            id=""
-                            cols="30"
-                            rows="5"
-                        ></textarea>
-                        <button className="text-white bg-primary px-3 py-2 rounded-lg my-3 flex items-center gap-2 cursor-pointer">
-                            <span className="hidden md:block">Add Note</span>
-                        </button>
+                        <NoteForm />
                         <div className="border-2 shadow-md p-3 my-3">
                             <div className="flex space-x-3">
                                 <img
