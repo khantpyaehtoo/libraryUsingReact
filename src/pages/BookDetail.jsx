@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import useTheme from "../hooks/useTheme";
 import useFirestore from "../hooks/useFirestore";
 import NoteForm from "../components/NoteForm";
+import NoteList from "../components/NoteList";
 
 export default function BookDetail() {
     let { id } = useParams();
@@ -41,30 +42,7 @@ export default function BookDetail() {
                             My Notes
                         </h3>
                         <NoteForm />
-                        <div className="border-2 shadow-md p-3 my-3">
-                            <div className="flex space-x-3">
-                                <img
-                                    src=""
-                                    alt=""
-                                    className="w-12 h-12 rounded-full"
-                                />
-                                <div>
-                                    <h3>Eric Rebillet</h3>
-                                    <div className="text-gray-400">
-                                        20.6.2001
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="mt-3">
-                                Lorem Ipsum is placeholder or "dummy" text used
-                                in design and publishing to showcase graphic
-                                elements (fonts, layout) without using
-                                meaningful content. Derived from Cicero’s 45 BC
-                                Latin text, it is scrambled to appear as natural
-                                English-like text, ensuring focus remains on
-                                design, not text content.
-                            </div>
-                        </div>
+                        <NoteList />
                     </div>
                 </>
             )}
