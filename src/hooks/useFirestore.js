@@ -92,8 +92,8 @@ export default function useFirestore() {
     };
 
     // update document
-    let updateDocument = (colName, id, data) => {
-        data.date = serverTimestamp();
+    let updateDocument = (colName, id, data, updateDate = true) => {
+        if (updateDate) data.date = serverTimestamp();
         let ref = doc(db, colName, id);
         return updateDoc(ref, data);
     };
